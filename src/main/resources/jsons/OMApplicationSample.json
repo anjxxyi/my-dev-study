@@ -1,6 +1,6 @@
 {
   "name": "홍길동",
-  "age": 30,
+  "oldage": 30,
   "userCars": [
     {
       "name": "Avante",
@@ -8,9 +8,9 @@
       "type": "세단"
     },
     {
-      "name": "Avante",
-      "carNumber": "123가1234",
-      "type": "세단"
+      "name": "Kona",
+      "carNumber": "34하5341",
+      "type": "SUV"
     }
   ]
 }
