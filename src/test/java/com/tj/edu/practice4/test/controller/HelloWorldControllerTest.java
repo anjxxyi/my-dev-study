@@ -17,7 +17,7 @@ class HelloWorldControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @DisplayName("helloWorld-GET HTTP Method 테스트")
+    @DisplayName("helloWorld-GET HTTP Method 성공테스트")
     @Test
     public void helloWorldSuccess() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/helloworld"))
@@ -34,4 +34,6 @@ class HelloWorldControllerTest {
                 .andExpect(status().is4xxClientError())
                 .andExpect(content().string(""));
     }
+
+
 }

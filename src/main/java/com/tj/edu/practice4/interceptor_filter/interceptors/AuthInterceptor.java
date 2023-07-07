@@ -8,19 +8,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import java.lang.annotation.Annotation;
 
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HandlerInterceptor.super.preHandle(request, response, handler);
-        System.out.println("   - AuthInterceptor preHandle 실행");
+        System.out.println("AuthInterceptor preHandle 실행");
 
-        // request URL 문자열을 parsing 해서 특정한 url만 interceptor 후 처리가능
-        request.getRequestURI();    // /authapt/...
+        // request URL 문자열을 parsing해서 특정한 url만 interceptor후처리가 가능
+        //String requestURI = request.getRequestURI();    // ex) /authapi/~~~, /api/~~~
 
         boolean isValidAccessAuthUserAnnotation = checkAccessValidAnnotation(handler, AuthUser.class);
         boolean isValidAccessAuthLogAnnotation = checkAccessValidAnnotation(handler, AuthLog.class);
@@ -39,23 +39,25 @@ public class AuthInterceptor implements HandlerInterceptor {
         Annotation annotation = handlerMethod.getBeanType().getAnnotation(clazz);
 
         if (authUserHandlerMethod != null || annotation != null) {
-            System.out.println("     -> Annotation Check ClassName : " + AuthUser.class.getName());
+            System.out.println("어노테이션 체크 class이름: " + clazz.getName());
+            // logic코드 예:전화번호 암호화
             return true;
         }
+
         return false;
     }
-
-
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 
+        // logic코드 예:전화번호 복호화
         System.out.println("AuthInterceptor postHandle 실행");
     }
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
 
+        // logic코드 예: 전봐번호 암복호화 완료된 것만 다른 db에 남기기
         System.out.println("AuthInterceptor afterCompletion 실행");
     }
 }
