@@ -9,10 +9,10 @@ import java.io.IOException;
 public class RequestFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println(">> doFilter 시작-----------------------");
+        System.out.println("doFilter 시작-----------------------");
 
         chain.doFilter(request, response);
 
-        System.out.println(">> doFilter 마침-----------------------");
+        System.out.println("doFilter 마침-----------------------");
     }
 }
