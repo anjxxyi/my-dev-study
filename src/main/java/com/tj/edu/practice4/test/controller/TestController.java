@@ -1,5 +1,6 @@
 package com.tj.edu.practice4.test.controller;
 
+import com.tj.edu.practice4.test.model.Member;
 import com.tj.edu.practice4.test.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class TestController {
     }
 
     @GetMapping("/test2")
-    public List<String> getAllMembers() {
-        return testService.getAllStringVal();
+    public List<Member> getAllMembers() {
+        return testService.getAllMembers();
     }
 }
