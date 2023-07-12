@@ -76,7 +76,7 @@ class MemberRepositoryTest {
                 .createAt(LocalDateTime.now())
                 .build();
         memberRepository.save(member);
-
+//
 //        // insert문(update_at컬럼이 null이 아닌 insert)
         Member member2 = Member.builder()
                 .updateAt(LocalDateTime.now())
@@ -149,11 +149,11 @@ class MemberRepositoryTest {
         memberRepository.findAll(memberExample2).forEach(System.out::println);
     }
 
-//    @DisplayName("semiProject sqlmapper관련 xml sql코드를 jpa 자바코드로 변환 테스트")
-//    @Test()
-//    void crudSemiSqlMapper() {
-//
-//    }
+    @DisplayName("semiProject sqlmapper관련 xml sql코드를 jpa 자바코드로 변환 테스트")
+    @Test()
+    void crudSemiSqlMapper() {
+
+    }
 
     @Test
     void jpaSchemaTest() throws InterruptedException {
@@ -184,5 +184,25 @@ class MemberRepositoryTest {
                 .nation(Nation.JAPAN)
                 .build();
         memberRepository.save(member);
+    }
+
+    @Test
+    void jpaEventListenerTest() {
+        Member member = Member.builder()
+                .name("홍승대")
+                .email("imila@naver.com")
+                .build();
+        memberRepository.save(member);      // insert(PrePersist, PostPersist)
+
+        Member member2 = memberRepository.findById(1L).orElseThrow(RuntimeException::new); // select(PostLoad)
+        member2.setName("박근혜");
+        memberRepository.save(member2);     // update(PreUpdate, PostUpdate)
+
+        memberRepository.deleteById(3L);    // delete(PreRemove, PostRemove)
+    }
+
+    @Test
+    void memberLogHistoryTest() {
+
     }
 }
