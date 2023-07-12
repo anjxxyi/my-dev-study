@@ -1,13 +1,10 @@
 package com.tj.edu.practice5.jpa.model;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -15,14 +12,24 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 @Entity
+@Table(name = "member")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue
     private Long id;
-    @NonNull
+    //    @NonNull
     private String name;
     private String email;
-    @NonNull
+    //    private long test1;
+//    private Integer test2;
+//    private int test3;
+//    @NonNull
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Address> address;
+
+    private Boolean male;
 }
