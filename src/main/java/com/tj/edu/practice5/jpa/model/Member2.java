@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 //@Table(name = "member", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})}, indexes = {@Index(columnList = "email"), @Index(columnList = "name")})
-@Table(name = "member", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Table(name = "member2", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class Member2 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
