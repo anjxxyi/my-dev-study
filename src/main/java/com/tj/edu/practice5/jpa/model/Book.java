@@ -1,9 +1,7 @@
 package com.tj.edu.practice5.jpa.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.context.event.EventListener;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -17,14 +15,19 @@ import java.time.LocalDateTime;
 //@Getter
 //@Setter
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@ToString
 @Entity
-public class Address extends BaseEntity  {
+//@EntityListeners(value = {TimeAuditEntityListener.class})
+//@EntityListeners(value = {AuditingEntityListener.class})
+public class Book extends BaseEntity  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String zipcode;
 
-//    @OneToOne
-//    private Member member;
+    @OneToOne(mappedBy = "book")
+    @ToString.Exclude
+    private BookReviewInfo bookReviewInfo;
+
+    private String name;
+    private String author;
 }

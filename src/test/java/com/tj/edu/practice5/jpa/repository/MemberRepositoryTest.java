@@ -1,6 +1,7 @@
 package com.tj.edu.practice5.jpa.repository;
 
 import com.tj.edu.practice5.jpa.model.Member;
+import com.tj.edu.practice5.jpa.model.MemberLogHistory;
 import com.tj.edu.practice5.jpa.model.enums.Nation;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +23,9 @@ class MemberRepositoryTest {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private MemberLogHistoryRepository memberLogHistoryRepository;
 
     @Test
     void crud() {
@@ -52,8 +56,8 @@ class MemberRepositoryTest {
                 .id(1L)
                 .name("홍길동")
                 .email("이메일 주소")
-                .createAt(LocalDateTime.now())
-                .updateAt(LocalDateTime.now())
+//                .createAt(LocalDateTime.now())
+//                .updateAt(LocalDateTime.now())
                 .build();
         memberRepository.save(member1);     // 1번을 가진 id가 있다면 update, 없으면 create문 발생
         List<Member> memberList3 = memberRepository.findAll();
@@ -73,13 +77,13 @@ class MemberRepositoryTest {
         Member member = Member.builder()
                 .id(8L)
                 .name("이명박")
-                .createAt(LocalDateTime.now())
+//                .createAt(LocalDateTime.now())
                 .build();
         memberRepository.save(member);
-
+//
 //        // insert문(update_at컬럼이 null이 아닌 insert)
         Member member2 = Member.builder()
-                .updateAt(LocalDateTime.now())
+//                .updateAt(LocalDateTime.now())
                 .id(9L)
                 .build();
         memberRepository.save(member2);
@@ -90,7 +94,7 @@ class MemberRepositoryTest {
                 .id(15L)
                 .name("박조은")
                 .email("parkjoeun@gmail.com")
-                .createAt(LocalDateTime.now())
+//                .createAt(LocalDateTime.now())
                 .build();
         memberRepository.save(member3);
 
@@ -134,7 +138,7 @@ class MemberRepositoryTest {
         ExampleMatcher matcher = ExampleMatcher.matching()
 //                .withIgnorePaths("name")
 //                .withMatcher("email", startsWith())
-                ;
+        ;
         Example<Member> memberExample = Example.of(
                 Member.builder()
 //                        .id(2L)
@@ -149,11 +153,11 @@ class MemberRepositoryTest {
         memberRepository.findAll(memberExample2).forEach(System.out::println);
     }
 
-//    @DisplayName("semiProject sqlmapper관련 xml sql코드를 jpa 자바코드로 변환 테스트")
-//    @Test()
-//    void crudSemiSqlMapper() {
-//
-//    }
+    @DisplayName("semiProject sqlmapper관련 xml sql코드를 jpa 자바코드로 변환 테스트")
+    @Test()
+    void crudSemiSqlMapper() {
+
+    }
 
     @Test
     void jpaSchemaTest() throws InterruptedException {
@@ -179,10 +183,48 @@ class MemberRepositoryTest {
                 .name("이미라")
                 .male(false)
                 .email("imila@naver.com")
-                .createAt(LocalDateTime.now())
-                .updateAt(LocalDateTime.now())
+//                .createAt(LocalDateTime.now())
+//                .updateAt(LocalDateTime.now())
                 .nation(Nation.JAPAN)
                 .build();
         memberRepository.save(member);
+    }
+
+    @Test
+    void jpaEventListenerTest() {
+        Member member = Member.builder()
+                .name("홍승대")
+                .email("imila@naver.com")
+                .build();
+        memberRepository.save(member);      // insert(PrePersist, PostPersist)
+        System.out.println(">>>>>>>>>>>>>>> " + member);
+
+        Member member2 = memberRepository.findById(1L).orElseThrow(RuntimeException::new); // select(PostLoad)
+        member2.setName("박근혜");
+        memberRepository.save(member2);     // update(PreUpdate, PostUpdate)
+
+        memberRepository.deleteById(3L);    // delete(PreRemove, PostRemove)
+
+        member2.setName("이은표");
+        memberRepository.save(member2);     // update(PreUpdate, PostUpdate)
+    }
+
+    @Test
+    void getOneToManyTest() {
+        Member member = Member.builder()
+                .name("홍승대")
+                .email("imila@naver.com")
+                .build();
+        memberRepository.save(member);
+
+        member.setName("박근혜");
+        memberRepository.save(member);
+
+//        List<Member> memberList = memberRepository.findAll();
+//        Member member2 = memberList.get(0);
+
+//        List<MemberLogHistory> memberLogHistories = memberLogHistoryRepository.findByMemberId(member.getId());
+//        Optional<Member> optMember2 = memberRepository.findById(memberLogHistories.get(0).getMemberId());
+        memberRepository.findAll();
     }
 }
