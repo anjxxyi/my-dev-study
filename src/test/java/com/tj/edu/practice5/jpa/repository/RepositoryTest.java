@@ -40,6 +40,9 @@ class RepositoryTest {
     @DisplayName("간단한 JPA MemberRepository 테스트")
     @Test
     void memberRepositoryTest1() {
+        // 1. member데이터 insert(event member log history데이터 insert)
+//        memberRepository.save(member)
+
 
     }
     @DisplayName("간단한 JPA BoardRepository 테스트")
@@ -86,7 +89,6 @@ class RepositoryTest {
                 .build();
         addressRepository.save(address);
     }
-
     @AfterEach
     void tearDown() {
     }

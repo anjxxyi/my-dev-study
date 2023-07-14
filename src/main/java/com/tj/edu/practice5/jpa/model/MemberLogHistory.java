@@ -1,31 +1,30 @@
 package com.tj.edu.practice5.jpa.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@Entity
-@NoArgsConstructor
-@Data
-@AllArgsConstructor
 @Builder
-public class MemberLogHistory implements Auditable {
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+//@Getter
+//@Setter
+@ToString
+@Entity
+@EqualsAndHashCode(callSuper = true)
+@EntityListeners(value = {AuditingEntityListener.class})
+public class MemberLogHistory extends BaseEntity  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long memberId;
-    private String name;
-    private String email;
-    private Boolean male;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
 
-    // 언제,누가,무엇을 변경하였는지 로그 기록용
+    private Long memberId;
+
+    private String email;
+    private String name;
 }
