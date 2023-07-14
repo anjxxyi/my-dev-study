@@ -56,8 +56,16 @@ public class Member extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private Nation nation;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "member_id", insertable = false, updatable = false)
+    @ToString.Exclude
     private List<MemberLogHistory> memberLogHistories;
+
+//    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
+    @JoinColumn(name = "member_id")
+    @ToString.Exclude
+    private List<Review> reviews;
 
     @PreRemove
     public void preDelete1() {

@@ -2,12 +2,7 @@ package com.tj.edu.practice5.jpa.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
 
 @Builder
 @NoArgsConstructor
@@ -19,14 +14,21 @@ import java.time.LocalDateTime;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @EntityListeners(value = {AuditingEntityListener.class})
-public class MemberLogHistory extends BaseEntity  {
+@Table(name = "review")
+public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
-    private String name;
+    @Column(columnDefinition = "varchar(500)", nullable = false)
+    private String title;
+    @Column(columnDefinition = "text")
+    private String content;
 
     @ManyToOne
     private Member member;
+
+    @ManyToOne
+    private Book book;
+
 }

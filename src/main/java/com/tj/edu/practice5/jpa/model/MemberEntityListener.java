@@ -4,6 +4,8 @@ import com.tj.edu.practice5.jpa.repository.MemberLogHistoryRepository;
 import com.tj.edu.practice5.jpa.util.SpringBeanUtils;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostUpdate;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +21,10 @@ public class MemberEntityListener {
         Member member = (Member) o;
 
         MemberLogHistory memberLogHistory = MemberLogHistory.builder()
-                .memberId(member.getId())
+                .member(member)
                 .name(member.getName())
                 .email(member.getEmail())
                 .build();
-
         memberLogHistoryRepository.save(memberLogHistory);
     }
 }

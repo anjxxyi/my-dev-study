@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -220,11 +221,21 @@ class MemberRepositoryTest {
         member.setName("박근혜");
         memberRepository.save(member);
 
+        member.setName("박근혜2");
+        memberRepository.save(member);
+
+//        List<MemberLogHistory> memberLogHistoryList
+//                = memberRepository.findByEmail("imila@naver.com").getMemberLogHistories();
+////        List<MemberLogHistory> memberLogHistoryList
+////                = memberRepository.findById(8L).get().getMemberLogHistories();
+//        memberLogHistoryList.forEach(System.out::println);
+
 //        List<Member> memberList = memberRepository.findAll();
 //        Member member2 = memberList.get(0);
+//        List<MemberLogHistory> memberLogHistoryList = member2.getMemberLogHistories();
+//        System.out.println(">>> memberLogHistoryList: " + memberLogHistoryList);
 
 //        List<MemberLogHistory> memberLogHistories = memberLogHistoryRepository.findByMemberId(member.getId());
 //        Optional<Member> optMember2 = memberRepository.findById(memberLogHistories.get(0).getMemberId());
-        memberRepository.findAll();
     }
 }

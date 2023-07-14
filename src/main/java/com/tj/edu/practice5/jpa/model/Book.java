@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -29,5 +30,18 @@ public class Book extends BaseEntity  {
     private BookReviewInfo bookReviewInfo;
 
     private String name;
-    private String author;
+//    private String author;
+
+    @ManyToOne
+    @ToString.Exclude
+    private Publisher publisher;
+
+    @OneToMany
+    @JoinColumn(name = "book_id")
+    @ToString.Exclude
+    private List<Review> reviews;
+
+    @ManyToMany
+    @ToString.Exclude
+    private List<Author> authors;
 }
