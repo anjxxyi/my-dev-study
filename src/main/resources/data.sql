@@ -3,3 +3,16 @@ insert into member(`id`, `name`, `email`, `create_at`, `update_at`) values (2, '
 insert into member(`id`, `name`, `email`, `create_at`, `update_at`) values (3, '홍길동', 'leesunsin@gmail.com', now(), now());
 insert into member(`id`, `name`, `email`, `create_at`, `update_at`) values (4, '강감찬', 'amsun@thejoeun.com', now(), now());
 insert into member(`id`, `name`, `email`, `create_at`, `update_at`) values (5, '홍길동', 'ryukwansun@thejoeun.com', now(), now());
+
+insert into users(`id`, `name`, `email`) values (1, '홍길동1', 'ho1@abc.com');
+insert into users(`id`, `name`, `email`) values (2, '홍길동2', 'ho2@abc.com');
+insert into users(`id`, `name`, `email`) values (3, '홍길동3', 'ho3@abc.com');
+
+insert into publisher(`id`, `name`, `create_at`, `update_at`) values (1, '더조은', now(), now());
+insert into publisher(`id`, `name`, `create_at`, `update_at`) values (2, '한빛출판사', now(), now());
+
+insert into book(`id`, `name`, `publisher_id`, `create_at`, `update_at`) values (1, '재미있는 자바', 1, now(), now());
+insert into book(`id`, `name`, `publisher_id`, `create_at`, `update_at`) values (2, '어려운 데이터베이스', 1, now(), now());
+insert into book(`id`, `name`, `publisher_id`, `create_at`, `update_at`) values (3, '텍스로 디자인하는 CSS', 1, now(), now());
+insert into book(`id`, `name`, `publisher_id`, `create_at`, `update_at`) values (4, '재미있는 자바', 2, now(), now());
+

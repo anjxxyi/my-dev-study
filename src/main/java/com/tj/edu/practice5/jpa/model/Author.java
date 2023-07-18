@@ -27,9 +27,9 @@ public class Author extends BaseEntity {
     @ManyToMany
     private List<Book> books;
 
-    @OneToMany
-    @JoinColumn
-    private List<AuthorAndBook> authorAndBookList;
+//    @OneToMany
+//    @JoinColumn
+//    private List<AuthorAndBook> authorAndBookList;
 
 //    @OneToMany
 //    @JoinColumn
